@@ -1,0 +1,143 @@
+
+EXERCISE 1
+
+To write the code of these exercise, I choose PYTHON and C++ as the two programming languages :
+
+PYTHON CODE :
+
+for i in range(1, 101):
+    if i % 3 == 0:
+        print("Hello", end="")
+    if i % 5 == 0:
+        print("World", end="")
+    if i % 7 == 0:
+        print("Yoo", end="")
+    if i % 3 != 0 and i % 5 != 0 and i % 7 != 0:
+        print(i, end="")
+    print()
+
+
+C++ CODE :
+
+
+#include <iostream>
+
+int main() {
+    for (int i = 1; i <= 100; i++) {
+        if (i % 3 == 0) {
+            std::cout << "Hello";
+        }
+        if (i % 5 == 0) {
+            std::cout << "World";
+        }
+        if (i % 7 == 0) {
+            std::cout << "Yoo";
+        }
+        if (i % 3 != 0 && i % 5 != 0 && i % 7 != 0) {
+            std::cout << i;
+        }
+        std::cout << std::endl;
+    }
+    return 0;
+}
+
+
+EXERCISE 2
+
+Given the assumptions and limitations stated, the most effective strategy to find your friend in the least amount of time would be to:
+
+-Start driving in one direction for a certain period of time (say 15-20 minutes) at a constant speed, making a mental note of any 
+landmarks or mile markers you pass. It is important to maintain a constant speed to eliminate any bias in the search direction.
+
+-After the designated time has elapsed, make a U-turn and start driving in the opposite direction, paying close attention to the 
+same landmarks and mile markers that you passed before.
+
+-Repeat this process of driving for a set amount of time in one direction and then making a U-turn, until you locate your friend's car. 
+As you drive, be on the lookout for any signs of a broken down car on the side of the road or any other familiar landmarks that your friend may have mentioned.
+
+-If you still cannot find your friend's car after several iterations of driving in both directions, try changing the time period that 
+you spend driving in each direction. For example, if you initially drove for 15-20 minutes in each direction, you could try driving for 30 minutes in each direction to cover more ground.
+
+It is important to remain calm and patient during the search and to keep a mental note of the landmarks and mile markers as you drive. 
+While this method may not guarantee finding your friend in the shortest amount of time, it is the most effective approach given the limitations and assumptions provided.
+
+
+
+EXERCISE 3
+
+A C++ program for an ESP32 environment that reads an analog input every 10 minutes 
+and returns to deep sleep mode at the end of each cycle(with comments).
+
+
+CODE:
+
+#include <esp_sleep.h>
+#include <driver/adc.h>
+
+void setup() {
+  //Configure ADC pin
+  adc1_config_width(ADC_WIDTH_BIT_12);
+  adc1_config_channel_atten(ADC1_CHANNEL_0, ADC_ATTEN_DB_0);
+}
+
+void loop() {
+  //Read analog value from ADC pin
+  int analog_value = adc1_get_raw(ADC1_CHANNEL_0);
+  
+  //Print the analog value to the serial monitor
+  Serial.print("Analog Value: ");
+  Serial.println(analog_value);
+  
+  //Set ESP32 to deep sleep mode for 10 minutes
+  esp_sleep_enable_timer_wakeup(10 * 60 * 1000000); //10 minutes in microseconds
+  esp_deep_sleep_start();
+}
+
+
+EXERCISE 4
+
+The given program is used to generate and calculate the frequency modulated signal based 
+on the input values of t, carrier frequency (fc) and message frequency (fm).
+
+We get an error because the following code doesn't recognize "Cos" and "Sin"; we have to 
+put the math library : #include <cmath>
+
+CODE PROPOSITION:
+
+#include <iostream>
+#include <cmath>
+
+const double pi = 3.14159265358979323846;
+double carrier_signal(double t, double fc){
+	return cos(2*pi*fc*t);
+}
+
+double message_signal(double t, double fm) {
+	return sin(2*pi*fm*t);
+}
+
+double freq_mod_signal(double t, double fc, double fm) {
+	return carrier_signal(t, fc) * message_signal(t, fm);
+}
+
+int main() {
+	double t, fc, fm;
+	std::cout << "Enter the value of t: ";
+	std::cin >> t;
+	std::cout << "Enter the value of carrier frequency (fc): ";
+	std::cin >> fc;
+	std::cout << "Enter the value of message frequency (fm): ";
+	std::cin >> fm;
+	
+
+	double mod_signal = freq_mod_signal(t, fc, fm);
+	std::cout << "The resulted signal is: " << mod_signal << std::endl;
+
+	return 0;
+}
+
+
+
+
+
+ 
